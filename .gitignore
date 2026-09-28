@@ -1,6 +1,2 @@
-# This file must be supplied only by an authorized data holder.
-skill/assets/records.jsonl
-
-# Never publish source-page evidence or original PDFs in this repository.
-skill/assets/evidence/
+# Raw PDFs are not needed at runtime and are intentionally not included.
 input/

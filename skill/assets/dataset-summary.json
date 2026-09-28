@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "record_count": 552,
+  "source_record_counts": {
+    "S01": 281,
+    "S02": 271
+  },
+  "record_type_counts": {
+    "recipe": 281,
+    "concept": 7,
+    "technique": 28,
+    "acupoint": 15,
+    "reflex_zone": 4,
+    "prevention": 1,
+    "figure": 216
+  },
+  "review_level": "model_checked",
+  "human_reviewed_records": 30,
+  "clinical_evidence_status": "not_evaluated",
+  "review_queue": {
+    "total": 552,
+    "pending_human": 522,
+    "human_checked": 30,
+    "changes_requested": 0,
+    "excluded": 0
+  },
+  "body_page_coverage": {
+    "S01": {
+      "first": 17,
+      "last": 202,
+      "count": 186,
+      "missing": []
+    },
+    "S02": {
+      "first": 8,
+      "last": 129,
+      "count": 122,
+      "missing": []
+    }
+  },
+  "non_body_page_disposition": {
+    "S01": "PDF 1-16 are cover, copyright, summary, preface, and directory pages; registered and model_checked but not duplicated as recipe records.",
+    "S02": "PDF 1-7 are front matter and PDF 130-131 are metadata/navigation pages; registered and model_checked but not duplicated as semantic body records."
+  },
+  "records_jsonl_sha256": "7f493b2df4f1bbdd7cbba2bc08f900522994fb90d832c6f1e7360e3b21615f80",
+  "review_queue_jsonl_sha256": "74a5984fdd74e9adcd4d1ba125a7995b578b856fbaef1c7af8fa70c87644c570",
+  "invariants": {
+    "record_ids_unique": true,
+    "queue_covers_every_record_once": true,
+    "all_evidence_images_exist": true,
+    "all_records_schema_valid": true,
+    "all_records_model_checked": true,
+    "human_review_not_claimed": false,
+    "clinical_evidence_not_claimed": true,
+    "clinical_evidence_not_evaluated": true
+  }
+}

@@ -60,6 +60,24 @@ PRACTICAL_PENALTIES = {
 
 # Prefer comparatively familiar food preparations before rare-animal or heavily
 # medicinal recipes. This is a usability ranking, not a clinical efficacy rank.
+PREFERRED_TITLES = {
+    "一、阳痿": ("海米萝卜汤", "海松子鸡蛋汤"),
+    "二、遗精": ("莲子黑豆羊肉汤", "核桃花生猪尾汤"),
+    "三、早泄": ("瘦肉莲子汤", "花生蚕豆汤"),
+    "四、肾虚腰痛": ("脊肉薏苡仁汤", "栗子猪尾汤"),
+    "五、性功能减退": ("龙井对虾汤", "鲢鱼姜椒汤"),
+    "六、精液异常": ("淮山药鳝鱼汤", "鲢鱼山药杞子汤"),
+    "七、不育症": ("三鲜银耳汤", "木耳汤"),
+    "八、早衰": ("龙眼牛肉汤", "莲藕猪蹄章鱼汤"),
+    "九、男子更年期性欲减退": ("百合熟地鸡蛋汤", "红萝卜猪蹄汤"),
+    "十、房劳过度": ("蛎肉海带丝汤", "海参鸭肉汤"),
+    "十一、睾丸发育不良": ("杜仲鹌鹑汤", "巴戟杞子羊肉汤"),
+    "十二、阴茎短小": ("泥鳅河虾汤", "黄精鸭肉海参汤"),
+    "十三、不射精": ("葱炖猪蹄汤", "桃仁墨鱼汤"),
+    "十四、睾丸炎": ("绿豆煲鸽汤", "冬瓜生鱼汤"),
+}
+
+
 def identify_topic(issue: str) -> tuple[str | None, str]:
     for aliases, chapter, label in TOPICS:
         if any(alias in issue for alias in aliases):
@@ -88,7 +106,11 @@ def select_recipes(records: Iterable[dict], chapter: str | None, limit: int = 2)
         and (chapter is None or chapter in record.get("chapter_path", []))
     ]
     candidates.sort(key=recipe_score, reverse=True)
-    return candidates[:limit]
+    by_title = {record["title_source"]: record for record in candidates}
+    selected = [by_title[title] for title in PREFERRED_TITLES.get(chapter or "", ()) if title in by_title]
+    selected_ids = {record["id"] for record in selected}
+    selected.extend(record for record in candidates if record["id"] not in selected_ids)
+    return selected[:limit]
 
 
 def recipe_block(record: dict, number: int, show_sources: bool) -> list[str]:
@@ -234,7 +256,7 @@ def build_answer(
     available = list(records if records is not None else load_records())
     chapter, label = identify_topic(issue)
 
-    lines = ["# 男性问题中医食疗辅助方案", "", "## 先理解你的问题", ""]
+    lines = ["# 男性问题中医调节方案", "", "## 先理解你的问题", ""]
     if is_acute(issue):
         lines.extend([
             f"你描述的是“{issue}”，其中包含疼痛、肿胀、出血、外伤或其他急性异常信号。此时不适合继续按摩，也不应靠食疗拖延检查。请停止刺激患处并尽快线下就医。",
@@ -244,14 +266,14 @@ def build_answer(
         return "\n".join(lines) + "\n", []
 
     lines.extend([
-        f"你描述的是“{issue}”。本助手把它暂时归入“{label}”来检索已获授权的资料，但这不是诊断，也不替你判断病因。",
+        f"你描述的是“{issue}”。本助手把它暂时归入“{label}”来检索两本原书，但这不是诊断，也不替你判断病因。",
         "",
         "## 可选食疗（一次选一道，不要同时叠加）",
         "",
     ])
     recipes = select_recipes(available, chapter, recipe_limit)
     if not recipes:
-        lines.append("当前获授权资料中没有找到足够可靠的对应食疗方，因此不补写。")
+        lines.append("两本原书的结构化记录中没有找到足够可靠的对应食疗方，因此不补写。")
     else:
         for index, record in enumerate(recipes, start=1):
             lines.extend(recipe_block(record, index, show_sources))

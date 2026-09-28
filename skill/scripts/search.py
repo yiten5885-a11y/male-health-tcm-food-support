@@ -169,7 +169,7 @@ def search_records(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--query", required=True)
-    parser.add_argument("--source", help="Filter by an authorized dataset source identifier")
+    parser.add_argument("--source", choices=("S01", "S02"))
     parser.add_argument(
         "--type",
         dest="record_type",

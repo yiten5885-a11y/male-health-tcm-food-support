@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "generated_on": "2026-09-25",
+  "sources": [
+    {
+      "id": "S01",
+      "uploaded_name": "与富婆交往后如何调养身体.pdf",
+      "book_title": "男性壮阳食疗汤",
+      "sha256": "44e52d9b9a164955330296ab3bd945941db43a96952b681c6ae217a6705c7564",
+      "bytes": 2100707,
+      "pdf_pages": 202
+    },
+    {
+      "id": "S02",
+      "uploaded_name": "阳痿按摩图解(1).pdf",
+      "book_title": "阳痿按摩图解",
+      "sha256": "6c38582db5d7d1049b245cc5e2b3d4e39725699ccf71b6e8d8a15baf2223826a",
+      "bytes": 4126294,
+      "pdf_pages": 131
+    }
+  ]
+}
